@@ -1,4 +1,3 @@
-
 import { GoogleGenAI, Type } from "@google/genai";
 import type { DeviceDetails } from '../types';
 
@@ -33,9 +32,13 @@ const responseSchema = {
         code: {
           type: Type.STRING,
           description: "The source code of the example. For example, blinking an LED, printing to serial, or a basic network scan."
+        },
+        simulatedOutput: {
+          type: Type.STRING,
+          description: "A short, one or two-line example of the console output that this code would produce when run successfully."
         }
       },
-      required: ['language', 'code']
+      required: ['language', 'code', 'simulatedOutput']
     }
   },
   required: ['description', 'useCases', 'codeExample']
@@ -43,7 +46,7 @@ const responseSchema = {
 
 
 export async function getDeviceDetails(deviceName: string): Promise<DeviceDetails> {
-  const prompt = `For the hardware device "${deviceName}", provide a technical overview, common use cases, and a simple "hello world" style code example. The target audience is a hardware hobbyist.`;
+  const prompt = `For the hardware device "${deviceName}", provide a technical overview, common use cases, and a simple "hello world" style code example. For the code example, also provide a simulated console output. The target audience is a hardware hobbyist.`;
   
   try {
     const response = await ai.models.generateContent({

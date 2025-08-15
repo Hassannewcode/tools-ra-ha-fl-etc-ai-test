@@ -1,4 +1,3 @@
-
 import type React from 'react';
 
 export interface Device {
@@ -11,6 +10,7 @@ export interface Device {
 export interface CodeExample {
   language: string;
   code: string;
+  simulatedOutput: string;
 }
 
 export interface DeviceDetails {
